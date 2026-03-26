@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Track Package</title>
+
+<style>
+body { font-family: Arial; background:#eef2f7; padding:20px; }
+.card { background:white; padding:20px; border-radius:10px; }
+.status { font-weight:bold; }
+</style>
+</head>
+
+<body>
+
+<div class="card">
+<h2>📦 Package Tracking</h2>
+
+<p><b>Tracking Code:</b> <span id="code"></span></p>
+<p><b>Status:</b> <span id="status" class="status"></span></p>
+<p><b>Location:</b> <span id="location"></span></p>
+<p><b>Date:</b> <span id="date"></span></p>
+
+</div>
+
+<script>
+let params = new URLSearchParams(window.location.search);
+let code = params.get("code");
+
+let data = JSON.parse(localStorage.getItem("tracking") || "{}");
+
+if(data[code]) {
+document.getElementById("code").innerText = code;
+document.getElementById("status").innerText = data[code].status;
+document.getElementById("location").innerText = data[code].location;
+document.getElementById("date").innerText = new Date().toDateString();
+} else {
+document.body.innerHTML = "<h2>Tracking Not Found</h2>";
+}
+</script>
+
+</body>
+</html>
